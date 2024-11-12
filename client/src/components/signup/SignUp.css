@@ -1,0 +1,118 @@
+/* General reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Main container styling */
+  .signup-container {
+    border: 1px solid #0866ff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8); /* Slight transparency */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .signup-container h2 {
+    color: #0866ff;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  
+  /* Input fields styling */
+  .signup-container input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #dcdcdc;
+    border-radius: 5px;
+    box-shadow: inset 2px 2px 5px #bebebe, inset -2px -2px 5px #ffffff;
+    outline: none;
+    font-size: 1rem;
+  }
+  
+  .signup-container input:focus {
+    border-color: #0866ff;
+    box-shadow: 0 0 5px rgba(8, 102, 255, 0.5);
+  }
+  
+  /* Button styling */
+  .signup-container .signup-button {
+    color: #fff;
+    width: 100%;
+    padding: 15px 0;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .signup-container .signup-button:hover {
+    background-color: #0655d4;
+    box-shadow: 2px 2px 5px #bebebe, -2px -2px 5px #ffffff;
+  }
+  
+  /* Password container with eye icon */
+  .password-container {
+    position: relative;
+    width: 100%;
+  }
+  
+  .password-container input[type="password"],
+  .password-container input[type="text"] {
+    padding-right: 40px; /* Make space for the eye icon */
+  }
+  
+  .eye-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 1.2rem;
+    user-select: none;
+  }
+  
+  .password-container .eye-icon:hover {
+    color: #0866ff;
+  }
+  
+  /* Success message (initially hidden) */
+  .signup-message {
+    display: none; /* This can be toggled via JS on successful signup */
+    color: green;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  /* Login text and link */
+  .login-text {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+  
+  .login-text a {
+    color: #0866ff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .login-text a:hover {
+    text-decoration: underline;
+  }
+  
