@@ -1,26 +1,50 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Form, Input, Button, Checkbox } from 'antd'
+import { Form, Input, Button, Checkbox, message } from 'antd'
 import { MailOutlined, LockOutlined } from '@ant-design/icons'
+import axios from 'axios'
 
 const Login = () => {
-  const onFinish = (values) => {
-    if (values.remember) {
+  const [loading, setLoading] = useState(false)  // For handling loading state
+
+  const onFinish = async (values) => {
+    const { email, password, remember } = values
+    
+    // Set the credentials to localStorage if "Remember me" is checked
+    if (remember) {
       window.localStorage.setItem(
         'eduhub-remember-cred',
-        JSON.stringify({ remember: values.remember, email: values.email })
+        JSON.stringify({ remember, email })
       )
     } else {
-      window.localStorage.setItem(
-        'eduhub-remember-cred',
-        JSON.stringify({ remember: false })
-      )
+      window.localStorage.setItem('eduhub-remember-cred', JSON.stringify({ remember: false }))
     }
-    // Dispatch login action here if needed
+
+    // Set loading state
+    setLoading(true)
+
+    try {
+      // Send login request to the backend
+      const response = await axios.post('http://localhost:5000/api/auth/login', { email, password })
+
+      // Handle successful login
+      if (response.status === 200) {
+        message.success('Login successful')
+        // Redirect to dashboard or home page
+        history.push('/dashboard')  // Replace '/dashboard' with the correct route
+      }
+    } catch (error) {
+      // Handle failed login
+      message.error(error.response?.data?.error || 'Login failed')
+    } finally {
+      // Reset loading state
+      setLoading(false)
+    }
   }
 
   const getInitialValues = () => {
-    return JSON.parse(window.localStorage.getItem('eduhub-remember-cred'))
+    const savedCredentials = JSON.parse(window.localStorage.getItem('eduhub-remember-cred'))
+    return savedCredentials ? savedCredentials : {}
   }
 
   return (
@@ -69,7 +93,6 @@ const Login = () => {
             <Form.Item name="remember" valuePropName="checked" noStyle>
               <Checkbox>Remember me</Checkbox>
             </Form.Item>
-            {/* <Link to="/ForgetPassword" className="text-blue-500">Forgot Password?</Link> */}
           </div>
 
           <Form.Item>
@@ -77,6 +100,7 @@ const Login = () => {
               type="primary"
               htmlType="submit"
               className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
+              loading={loading}  // Show loading state
             >
               Login
             </Button>

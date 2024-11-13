@@ -12,7 +12,7 @@ import {
 
 const Sidebar = () => {
   return (
-    <div className="bg-gray-900 w-64 min-h-screen p-4 text-white">
+    <div className="bg-gradient-to-r from-gray-500 to-gray-900 w-64 min-h-screen p-4 text-white">
       <h2 className="text-lg font-bold mb-4">Navigation</h2>
       <ul className="space-y-2">
         <li>

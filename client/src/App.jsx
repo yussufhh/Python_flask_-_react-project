@@ -14,7 +14,7 @@ import Footer from './components/footer/Footer';
 import SignUp from './components/signup/SignUp';
 import Login from './components/login/Login';
 import EditProfile from './components/pages/EditProfile'; // Import the EditProfile component
-
+import Main from './components/pages/Main';
 function App() {
   return (
     <Router>
@@ -24,6 +24,7 @@ function App() {
           <Navbar />
           <div className="p-8">
             <Routes>
+            <Route path="/Main" element={<Main />} />
               <Route path="/" element={<Home />} />
               <Route path="/courses" element={<Courses />} />
               <Route path="/courses/:id" element={<CourseDetail />} />
