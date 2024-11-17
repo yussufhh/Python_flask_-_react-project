@@ -1,76 +1,39 @@
-import React, { useState } from "react";
-import { Form, Input, Card, Button, Avatar } from "antd";
-import Meta from "antd/lib/card/Meta";
+import React, { useState, useEffect } from "react";
+import { notification } from "antd";
 
 const Profile = () => {
-  const [form] = Form.useForm();
-  const [profileImage, setProfileImage] = useState("https://img.freepik.com/free-photo/dreamlike-surrealistic-landscape_23-2150525023.jpg?ga=GA1.1.324353260.1725517862&semt=ais_hybrid");
+  const [userData, setUserData] = useState({ username: "", email: "", profile_pic: "" });
 
-  // Handle form submission
-  const handleSubmit = (values) => {
-    // Assuming you will handle profile update here
-    notificationsService.showNotification("Profile updated successfully!");
-    console.log("Updated profile data:", values);
-  };
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/user/profile?user_id=1");
+        const data = await response.json();
+        if (response.ok) {
+          setUserData(data);
+        } else {
+          notification.error({ message: data.error || "Error fetching profile" });
+        }
+      } catch (error) {
+        notification.error({ message: "An error occurred while fetching profile" });
+      }
+    };
 
-  // Handle image upload (if needed)
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setProfileImage(URL.createObjectURL(file));
-    }
-  };
+    fetchProfile();
+  }, []);
 
   return (
-    <div className="profile-container">
-      <Card className="profile-card">
-        <Meta
-          avatar={
-            <Avatar size={64} src={profileImage || "default-avatar.png"} />
-          }
-          title="Moon Lover" // Replace with dynamic user name
-          description="Web Developer" // Replace with dynamic user role
+    <div className="max-w-2xl mx-auto p-8">
+      <h1 className="text-2xl font-bold mb-4">User Profile</h1>
+      <div className="mb-4">
+        <img
+          src={userData.profile_pic || "https://via.placeholder.com/150"}
+          alt="Profile"
+          className="w-32 h-32 rounded-full"
         />
-        <Form
-          form={form}
-          layout="vertical"
-          onFinish={handleSubmit}
-          initialValues={{
-            username: "Moon lover", // Replace with dynamic user data
-            email: "moonlover88@gmail.com", // Replace with dynamic user email
-          }}
-        >
-          <Form.Item
-            label="Username"
-            name="username"
-            rules={[{ required: true, message: "Please enter your username!" }]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="Email"
-            name="email"
-            rules={[{ required: true, message: "Please enter your email!" }]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item label="Profile Picture">
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-            />
-          </Form.Item>
-
-          <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Update Profile
-            </Button>
-          </Form.Item>
-        </Form>
-      </Card>
+      </div>
+      <p className="mb-2">Username: {userData.username}</p>
+      <p className="mb-2">Email: {userData.email}</p>
     </div>
   );
 };

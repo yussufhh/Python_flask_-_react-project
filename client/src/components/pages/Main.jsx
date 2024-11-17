@@ -38,73 +38,125 @@ const Main = () => {
         </div>
       </section>
 
-       {/* Featured Courses Section */}
-       <section className="py-16 bg-gray-100">
+      {/* Featured Courses Section */}
+      <section className="py-16 bg-gray-100">
         <div className="container mx-auto px-4">
           <h3 className="text-3xl font-bold text-center mb-10">Featured Courses</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-              <img src="data:image/png;base64,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" alt="Course 1" className="w-full h-48 object-cover" />
+              <div className="flex justify-center p-6">
+                <i className="fab fa-html5 text-5xl text-orange-600"></i>
+              </div>
               <div className="p-6">
-                <h4 className="text-xl font-semibold mb-2">Introduction to JavaScript</h4>
-                <p className="text-gray-700 mb-4">Get started with JavaScript programming from scratch.</p>
+                <h4 className="text-xl font-semibold mb-2">HTML5 Essentials</h4>
+                <p className="text-gray-700 mb-4">Master the building blocks of the web with HTML5.</p>
                 <a href="#" className="text-blue-600 font-semibold hover:underline">Learn More</a>
               </div>
             </div>
             <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-              <img src="data:image/png;base64,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" alt="Course 2" className="w-full h-48 object-cover" />
+              <div className="flex justify-center p-6">
+                <i className="fab fa-css3-alt text-5xl text-blue-500"></i>
+              </div>
               <div className="p-6">
-                <h4 className="text-xl font-semibold mb-2">Advanced CSS Techniques</h4>
-                <p className="text-gray-700 mb-4">Enhance your styling skills with advanced CSS.</p>
+                <h4 className="text-xl font-semibold mb-2">CSS3 Mastery</h4>
+                <p className="text-gray-700 mb-4">Create beautiful, responsive layouts with CSS3.</p>
                 <a href="#" className="text-blue-600 font-semibold hover:underline">Learn More</a>
               </div>
             </div>
             <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-              <img src="data:image/png;base64,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" alt="Course 3" className="w-full h-48 object-cover" />
+              <div className="flex justify-center p-6">
+                <i className="fab fa-js-square text-5xl text-yellow-500"></i>
+              </div>
               <div className="p-6">
-                <h4 className="text-xl font-semibold mb-2">Digital Marketing Essentials</h4>
-                <p className="text-gray-700 mb-4">Explore the key strategies in digital marketing.</p>
+                <h4 className="text-xl font-semibold mb-2">JavaScript for Beginners</h4>
+                <p className="text-gray-700 mb-4">Learn JavaScript to add interactivity to your web pages.</p>
+                <a href="#" className="text-blue-600 font-semibold hover:underline">Learn More</a>
+              </div>
+            </div>
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+              <div className="flex justify-center p-6">
+                <i className="fab fa-react text-5xl text-blue-600"></i>
+              </div>
+              <div className="p-6">
+                <h4 className="text-xl font-semibold mb-2">React Development</h4>
+                <p className="text-gray-700 mb-4">Build dynamic user interfaces with React.js.</p>
+                <a href="#" className="text-blue-600 font-semibold hover:underline">Learn More</a>
+              </div>
+            </div>
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+              <div className="flex justify-center p-6">
+                <i className="fab fa-python text-5xl text-yellow-600"></i>
+              </div>
+              <div className="p-6">
+                <h4 className="text-xl font-semibold mb-2">Python Programming</h4>
+                <p className="text-gray-700 mb-4">Learn Python to build applications and analyze data.</p>
+                <a href="#" className="text-blue-600 font-semibold hover:underline">Learn More</a>
+              </div>
+            </div>
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+              <div className="flex justify-center p-6">
+                <i className="fab fa-git-alt text-5xl text-orange-700"></i>
+              </div>
+              <div className="p-6">
+                <h4 className="text-xl font-semibold mb-2">Git Version Control</h4>
+                <p className="text-gray-700 mb-4">Master Git to track and manage your code changes.</p>
                 <a href="#" className="text-blue-600 font-semibold hover:underline">Learn More</a>
               </div>
             </div>
           </div>
         </div>
+        
       </section>
-
-
-      {/* Featured Courses Section */}
-      <section className="py-16 bg-gray-100">
+      <section className="py-16 bg-gray-200">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-              <img src="data:image/png;base64,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" alt="Course 1" className="w-full h-48 object-cover" />
-              <div className="p-6">
-                <h4 className="text-xl font-semibold mb-2">Introduction to JavaScript</h4>
-                <p className="text-gray-700 mb-4">Get started with JavaScript programming from scratch.</p>
-                <a href="#" className="text-blue-600 font-semibold hover:underline">Learn More</a>
-              </div>
+          <h2 className="text-3xl font-bold text-center mb-10">What Our Learners Say</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* First Testimonial */}
+            <div className="bg-blue-100 p-6 rounded-lg shadow-lg text-center">
+              <p className="italic text-lg mb-4">
+                "This platform changed my life! The courses are comprehensive and easy to follow."
+              </p>
+              <p className="text-right text-blue-700 font-bold">- Zakaria Abdullahi</p>
             </div>
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-              <img src="data:image/png;base64,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" alt="Course 2" className="w-full h-48 object-cover" />
-              <div className="p-6">
-                <h4 className="text-xl font-semibold mb-2">Advanced CSS Techniques</h4>
-                <p className="text-gray-700 mb-4">Enhance your styling skills with advanced CSS.</p>
-                <a href="#" className="text-blue-600 font-semibold hover:underline">Learn More</a>
-              </div>
+            {/* Second Testimonial */}
+            <div className="bg-yellow-100 p-6 rounded-lg shadow-lg text-center">
+              <p className="italic text-lg mb-4">
+                "I landed my dream job after completing the Python course!"
+              </p>
+              <p className="text-right text-yellow-700 font-bold">- Moon Lover</p>
             </div>
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-              <img src="data:image/png;base64,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" alt="Course 3" className="w-full h-48 object-cover" />
-              <div className="p-6">
-                <h4 className="text-xl font-semibold mb-2">Digital Marketing Essentials</h4>
-                <p className="text-gray-700 mb-4">Explore the key strategies in digital marketing.</p>
-                <a href="#" className="text-blue-600 font-semibold hover:underline">Learn More</a>
-              </div>
+            {/* Third Testimonial */}
+            <div className="bg-green-100 p-6 rounded-lg shadow-lg text-center">
+              <p className="italic text-lg mb-4">
+                "The instructors are amazing, and the content is top-notch!"
+              </p>
+              <p className="text-right text-green-700 font-bold">- Sahara Mohamed</p>
+            </div>
+            {/* Fourth Testimonial */}
+            <div className="bg-purple-100 p-6 rounded-lg shadow-lg text-center">
+              <p className="italic text-lg mb-4">
+                "The flexibility of the courses allowed me to learn at my own pace."
+              </p>
+              <p className="text-right text-purple-700 font-bold">- Amina Yusuf</p>
+            </div>
+            {/* Fifth Testimonial */}
+            <div className="bg-red-100 p-6 rounded-lg shadow-lg text-center">
+              <p className="italic text-lg mb-4">
+                "EduMaster provided me with the skills I needed to transition into a tech career."
+              </p>
+              <p className="text-right text-red-700 font-bold">- Ahmed Noor</p>
+            </div>
+            {/* Sixth Testimonial */}
+            <div className="bg-teal-100 p-6 rounded-lg shadow-lg text-center">
+              <p className="italic text-lg mb-4">
+                "The support from the instructors and community is unparalleled!"
+              </p>
+              <p className="text-right text-teal-700 font-bold">- Fatima Ali</p>
             </div>
           </div>
         </div>
       </section>
 
-      
     </div>
   );
 };

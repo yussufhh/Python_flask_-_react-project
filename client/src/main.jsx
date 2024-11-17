@@ -5,10 +5,13 @@ import './index.css'
 import { ThemeProvider } from './components/Settings/ThemeContext.jsx';
 
 
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ThemeProvider>
-      <App />
+  
+        <App />
+
     </ThemeProvider>
   </StrictMode>,
 )

@@ -1,4 +1,4 @@
-// src/App.jsx
+// App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
@@ -7,39 +7,52 @@ import Home from './components/pages/Home';
 import Courses from './components/pages/Courses';
 import CourseDetail from './components/pages/CourseDetail';
 import Profile from './components/pages/Profile';
-import Calendar from './components/pages/Calendar'; 
-import Contact from './components/contact/Contact'; 
-import Settings from './components/Settings/Settings'; // Import the Settings component
+import Calendar from './components/pages/Calendar';
+import Contact from './components/contact/Contact';
+import Settings from './components/Settings/Settings';
 import Footer from './components/footer/Footer';
 import SignUp from './components/signup/SignUp';
 import Login from './components/login/Login';
-import EditProfile from './components/pages/EditProfile'; // Import the EditProfile component
+import EditProfile from './components/pages/EditProfile';
 import Main from './components/pages/Main';
+import AboutUs  from './components/pages/About';
+
 function App() {
   return (
     <Router>
-      <div className="flex">
+      <div className="flex min-h-screen">
+        {/* Sidebar */}
         <Sidebar />
-        <div className="flex-1">
+
+        <div className="flex-1 flex flex-col">
+          {/* Navbar at the top */}
           <Navbar />
-          <div className="p-8">
+
+          {/* Main Content Area */}
+          <main className="flex-grow p-8">
             <Routes>
-            <Route path="/Main" element={<Main />} />
+              {/* Public Routes */}
               <Route path="/" element={<Home />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/login" element={<Login />} />
+
+              {/* Authenticated Routes */}
+              <Route path="/Main" element={<Main />} />
               <Route path="/courses" element={<Courses />} />
               <Route path="/courses/:id" element={<CourseDetail />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path="/profile/edit" element={<EditProfile />} /> {/* Add EditProfile route */}
+              <Route path="/profile/edit" element={<EditProfile />} />
               <Route path="/calendar" element={<Calendar />} />
+              <Route path="/settings" element={<Settings />} />
               <Route path="/contact" element={<Contact />} />
-              <Route path="/settings" element={<Settings />} /> {/* Add Settings route */}
-              <Route path="/signup" element={<SignUp />} />
-              <Route path="/login" element={<Login />} />
+              <Route path="/about" element={<AboutUs />} />
             </Routes>
-          </div>
+          </main>
+
+          {/* Footer at the bottom */}
+          <Footer />
         </div>
       </div>
-      <Footer />
     </Router>
   );
 }

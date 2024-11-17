@@ -48,7 +48,7 @@ const Home = () => {
 
   return (
     <div className={`container mx-auto p-8 ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-black'}`}>
-      <h1 className="text-3xl font-bold mb-6">Welcome to Canvas LMS</h1>
+      <h1 className="text-3xl font-bold mb-6">Welcome to  EduMaster Learning Management System</h1>
       <h2 className="text-2xl font-semibold mb-4">Featured Courses</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {featuredCourses.map((course) => (

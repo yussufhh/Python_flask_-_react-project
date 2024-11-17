@@ -1,10 +1,9 @@
-// src/components/Footer.jsx
 import React from 'react';
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaGithub } from 'react-icons/fa';
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-r from-gray-500 to-blue-900 text-white py-10">
+    <footer className="bg-gradient-to-r from-gray-800 to-blue-900 text-white py-10">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
@@ -27,19 +26,19 @@ const Footer = () => {
             <h2 className="text-3xl font-bold mb-4">Follow Us</h2>
             <div className="flex space-x-4 mb-4">
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition duration-200">
-                <FaFacebook size={30} />
+                <FaFacebook size={30} className="text-white" />
               </a>
               <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition duration-200">
-                <FaTwitter size={30} />
+                <FaTwitter size={30} className="text-white" />
               </a>
               <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition duration-200">
-                <FaInstagram size={30} />
+                <FaInstagram size={30} className="text-white" />
               </a>
               <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition duration-200">
-                <FaLinkedin size={30} />
+                <FaLinkedin size={30} className="text-white" />
               </a>
               <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition duration-200">
-                <FaGithub size={30} />
+                <FaGithub size={30} className="text-white" />
               </a>
             </div>
             <h2 className="text-xl font-semibold mb-2">Contact Us</h2>
