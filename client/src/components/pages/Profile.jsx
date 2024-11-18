@@ -32,8 +32,8 @@ const Profile = () => {
           className="w-32 h-32 rounded-full"
         />
       </div>
-      <p className="mb-2">Username: {userData.username}</p>
-      <p className="mb-2">Email: {userData.email}</p>
+      <p className="mb-2">Username: {userData.username || "N/A"}</p>
+      <p className="mb-2">Email: {userData.email || "N/A"}</p>
     </div>
   );
 };

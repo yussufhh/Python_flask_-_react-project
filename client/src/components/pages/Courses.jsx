@@ -154,31 +154,3 @@ const Courses = () => {
 };
 
 export default Courses;
-
-// import React, { useState, useEffect } from 'react';
-// import CourseCard from '../CourseCard/CourseCard';
-
-// const Courses = () => {
-//   const [courses, setCourses] = useState([]);
-//   const [enrolled, setEnrolled] = useState(0);
-//   const [graduated, setGraduated] = useState(0);
-//   const [reviews, setReviews] = useState(0);
-
-//   useEffect(() => {
-//     fetch('/api/courses')
-//       .then(response => response.json())
-//       .then(data => {
-//         setCourses(data);
-//         // Compute counters based on data if needed
-//       })
-//       .catch(error => console.error("Error fetching courses:", error));
-//   }, []);
-
-//   return (
-//     <div className="container mx-auto p-8">
-//       {/* Render your components as before */}
-//     </div>
-//   );
-// };
-
-// export default Courses;

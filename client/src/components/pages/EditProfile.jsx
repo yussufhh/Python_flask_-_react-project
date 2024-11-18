@@ -5,8 +5,10 @@ import { notification } from "antd";
 const EditProfile = () => {
   const [userData, setUserData] = useState({ username: "", email: "", profile_pic: "" });
   const [previewPic, setPreviewPic] = useState("");
+  const [file, setFile] = useState(null); // State to hold the selected file
   const navigate = useNavigate();
 
+  // Fetch user data when the component mounts
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -26,26 +28,41 @@ const EditProfile = () => {
     fetchUserData();
   }, []);
 
+  // Handle input changes (username, email)
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // Handle image file selection
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      const imageUrl = URL.createObjectURL(selectedFile);
       setPreviewPic(imageUrl);
+      setFile(selectedFile); // Save the selected file for upload
     }
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Create FormData for sending data to the backend
+    const formData = new FormData();
+    formData.append("user_id", 1); // Assuming user_id is 1 for this example
+    formData.append("username", userData.username);
+    formData.append("email", userData.email);
+
+    // Add profile picture if selected
+    if (file) {
+      formData.append("file", file);
+    }
+
     try {
       const response = await fetch("http://localhost:5000/api/user/profile", {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(userData),
+        body: formData,
       });
       if (response.ok) {
         notification.success({ message: "Profile updated successfully!" });
@@ -82,10 +99,17 @@ const EditProfile = () => {
         <label className="block mb-2">Profile Picture</label>
         <input
           type="file"
+          accept="image/*"
           onChange={handleImageChange}
           className="block w-full p-2 border rounded mb-4"
         />
-        {previewPic && <img src={previewPic} alt="Preview" className="w-32 h-32 rounded-full" />}
+        {previewPic ? (
+          <img src={previewPic} alt="Preview" className="w-32 h-32 rounded-full mb-4" />
+        ) : (
+          <div className="w-32 h-32 rounded-full bg-gray-300 flex items-center justify-center mb-4">
+            <span className="text-gray-500">No Image</span>
+          </div>
+        )}
         <button className="bg-blue-500 text-white px-4 py-2 rounded">Save Changes</button>
       </form>
     </div>

@@ -1,4 +1,3 @@
-// App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
@@ -13,7 +12,7 @@ import Settings from './components/Settings/Settings';
 import Footer from './components/footer/Footer';
 import SignUp from './components/signup/SignUp';
 import Login from './components/login/Login';
-import EditProfile from './components/pages/EditProfile';
+import EditProfile from './components/pages/EditProfile';  // Only import it here once
 import Main from './components/pages/Main';
 import AboutUs  from './components/pages/About';
 
@@ -41,7 +40,7 @@ function App() {
               <Route path="/courses" element={<Courses />} />
               <Route path="/courses/:id" element={<CourseDetail />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path="/profile/edit" element={<EditProfile />} />
+              <Route path="/profile/edit" element={<EditProfile />} /> {/* Route for editing profile */}
               <Route path="/calendar" element={<Calendar />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/contact" element={<Contact />} />
