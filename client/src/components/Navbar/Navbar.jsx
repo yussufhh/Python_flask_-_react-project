@@ -20,6 +20,9 @@ const Navbar = () => {
             <a href="/Login" className="text-white hover:text-blue-700 px-4">Login</a>
             <a href="/signup" className="text-white hover:text-blue-700 px-4">SignUp</a>
             <a href="/contact" className="text-white hover:text-gray-300 px-4">Contact</a>
+            <a href="/sidebar" className="text-white hover:text-gray-300 px-4"></a>
+            <a href="/adminsidebar" className="text-white hover:text-gray-300 px-4"></a>
+
           </div>
 
           {/* Mobile Hamburger Menu */}

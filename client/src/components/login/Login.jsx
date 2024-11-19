@@ -32,7 +32,7 @@ const Login = () => {
         localStorage.setItem('user-role', role);
         
         message.success('Login successful');
-        navigate('/main');
+        navigate('/sidebar');
       }
     } catch (error) {
       message.error(error.response?.data?.error || 'Login failed');

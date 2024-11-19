@@ -1,64 +1,74 @@
 import React, { useState, useRef } from "react";
-import emailjs from "@emailjs/browser";
 import styled from "styled-components";
-
-// npm install @emailjs/browser
 
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false); // For button disabling
   const [messageStatus, setMessageStatus] = useState(""); // Success/Failure message
   const form = useRef();
 
-  const sendEmail = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Start by disabling the button to prevent multiple submissions
     setIsSubmitting(true);
-    setMessageStatus(""); // Reset message status before each submission
+    setMessageStatus("");
 
-    emailjs
-      .sendForm(
-        "service_1ws2jjr",  // Your service ID
-        "template_835repp",  // Your template ID
-        form.current,
-        "Q_f5AZTNQmadYAmQh" // Your public key
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
-          setMessageStatus("Message sent successfully!");
-          form.current.reset(); // Clear the form fields after successful submission
+    const formData = {
+      user_name: form.current.user_name.value,
+      user_email: form.current.user_email.value,
+      message: form.current.message.value,
+    };
+
+    try {
+      const response = await fetch("http://127.0.0.1:5300/api/contact", {  // Updated to correct port
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-        (error) => {
-          console.log(error.text);
-          setMessageStatus("Failed to send the message. Please try again.");
-        }
-      )
-      .finally(() => {
-        setIsSubmitting(false); // Re-enable button after submission
+        body: JSON.stringify(formData),
       });
+
+      if (response.ok) {
+        setMessageStatus("Message sent successfully!");
+        form.current.reset(); // Clear the form fields
+      } else {
+        const errorData = await response.json();
+        setMessageStatus(
+          errorData.error || "Failed to send the message. Please try again."
+        );
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setMessageStatus("An error occurred while sending the message.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <StyledContactForm>
-      <form ref={form} onSubmit={sendEmail}>
+      <form ref={form} onSubmit={handleSubmit}>
         <label>Name</label>
         <input type="text" name="user_name" required />
-        
+
         <label>Email</label>
         <input type="email" name="user_email" required />
-        
+
         <label>Message</label>
         <textarea name="message" required />
-        
-        <input 
-          type="submit" 
-          value={isSubmitting ? "Sending..." : "Send"} 
-          disabled={isSubmitting} 
+
+        <input
+          type="submit"
+          value={isSubmitting ? "Sending..." : "Send"}
+          disabled={isSubmitting}
         />
 
         {/* Displaying status message after submission */}
-        {messageStatus && <MessageStatus isSuccess={messageStatus === "Message sent successfully!"}>{messageStatus}</MessageStatus>}
+        {messageStatus && (
+          <MessageStatus
+            isSuccess={messageStatus === "Message sent successfully!"}
+          >
+            {messageStatus}
+          </MessageStatus>
+        )}
       </form>
     </StyledContactForm>
   );
@@ -82,7 +92,8 @@ const StyledContactForm = styled.div`
     max-width: 400px; // Set a max width for the form
     font-size: 16px;
 
-    input, textarea {
+    input,
+    textarea {
       width: 100%;
       height: 35px;
       padding: 7px;

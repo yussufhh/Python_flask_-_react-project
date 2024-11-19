@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { notification } from "antd";
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';  // Import Link for routing
 
 const Profile = () => {
-  const [userData, setUserData] = useState({ username: "", email: "", profile_pic: "" });
+  const [profile, setProfile] = useState({
+    username: '',
+    email: '',
+    profile_pic: '',
+  });
 
   useEffect(() => {
     const fetchProfile = async () => {
-      try {
-        const response = await fetch("http://localhost:5000/api/user/profile?user_id=1");
-        const data = await response.json();
-        if (response.ok) {
-          setUserData(data);
-        } else {
-          notification.error({ message: data.error || "Error fetching profile" });
-        }
-      } catch (error) {
-        notification.error({ message: "An error occurred while fetching profile" });
+      const response = await fetch('http://127.0.0.1:4000/api/user/profile?user_id=1');
+      if (response.ok) {
+        const profileData = await response.json();
+        setProfile(profileData);
+      } else {
+        console.error('Error fetching profile');
       }
     };
 
@@ -23,17 +23,38 @@ const Profile = () => {
   }, []);
 
   return (
-    <div className="max-w-2xl mx-auto p-8">
-      <h1 className="text-2xl font-bold mb-4">User Profile</h1>
-      <div className="mb-4">
-        <img
-          src={userData.profile_pic || "https://via.placeholder.com/150"}
-          alt="Profile"
-          className="w-32 h-32 rounded-full"
-        />
+    <div className="bg-gray-100 min-h-screen flex items-center justify-center">
+      <div className="bg-white w-full max-w-lg p-8 rounded-xl shadow-lg">
+        {/* Profile Picture */}
+        <div className="flex justify-center mb-6">
+          <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-blue-500">
+            <img
+              src={profile.profile_pic || 'https://via.placeholder.com/150'}
+              alt="Profile"
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+
+        {/* Username */}
+        <div className="text-center mb-4">
+          <h2 className="text-2xl font-semibold text-gray-800">{profile.username || 'Username'}</h2>
+        </div>
+
+        {/* Email */}
+        <div className="text-center mb-6">
+          <p className="text-gray-600">{profile.email || 'user@example.com'}</p>
+        </div>
+
+        {/* Profile Edit Button */}
+        <div className="text-center">
+          <Link to="/profile/edit">  {/* Updated Link */}
+            <button className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-300">
+              Edit Profile
+            </button>
+          </Link>
+        </div>
       </div>
-      <p className="mb-2">Username: {userData.username || "N/A"}</p>
-      <p className="mb-2">Email: {userData.email || "N/A"}</p>
     </div>
   );
 };

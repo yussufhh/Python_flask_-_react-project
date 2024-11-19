@@ -15,43 +15,44 @@ import Login from './components/login/Login';
 import EditProfile from './components/pages/EditProfile';  // Only import it here once
 import Main from './components/pages/Main';
 import AboutUs  from './components/pages/About';
+import AdminSidebar from './components/AdminDashboard/AdminSidebar';
 
 function App() {
   return (
     <Router>
-      <div className="flex min-h-screen">
+   
         {/* Sidebar */}
-        <Sidebar />
+      
 
-        <div className="flex-1 flex flex-col">
+        
           {/* Navbar at the top */}
           <Navbar />
 
           {/* Main Content Area */}
-          <main className="flex-grow p-8">
+          <main>
             <Routes>
               {/* Public Routes */}
-              <Route path="/" element={<Home />} />
+              <Route path="/home" element={<Home />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/login" element={<Login />} />
 
               {/* Authenticated Routes */}
-              <Route path="/Main" element={<Main />} />
+              <Route path="/" element={<Main />} />
               <Route path="/courses" element={<Courses />} />
               <Route path="/courses/:id" element={<CourseDetail />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/profile/edit" element={<EditProfile />} /> {/* Route for editing profile */}
               <Route path="/calendar" element={<Calendar />} />
-              <Route path="/settings" element={<Settings />} />
+              <Route path="/settings"element={<Settings />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/about" element={<AboutUs />} />
+              <Route path="/sidebar" element={<Sidebar />} />
+              <Route path="/adminsidebar" element={<AdminSidebar />} />
             </Routes>
           </main>
 
           {/* Footer at the bottom */}
           <Footer />
-        </div>
-      </div>
     </Router>
   );
 }
