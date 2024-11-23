@@ -25,19 +25,44 @@ const Footer = () => {
           <div>
             <h2 className="text-3xl font-bold mb-4">Follow Us</h2>
             <div className="flex space-x-4 mb-4">
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition duration-200">
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:bg-blue-600 p-2 rounded-full transition duration-300"
+              >
                 <FaFacebook size={30} className="text-white" />
               </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition duration-200">
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:bg-blue-400 p-2 rounded-full transition duration-300"
+              >
                 <FaTwitter size={30} className="text-white" />
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition duration-200">
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:bg-pink-500 p-2 rounded-full transition duration-300"
+              >
                 <FaInstagram size={30} className="text-white" />
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition duration-200">
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:bg-blue-800 p-2 rounded-full transition duration-300"
+              >
                 <FaLinkedin size={30} className="text-white" />
               </a>
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition duration-200">
+              <a
+                href="https://github.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:bg-gray-700 p-2 rounded-full transition duration-300"
+              >
                 <FaGithub size={30} className="text-white" />
               </a>
             </div>

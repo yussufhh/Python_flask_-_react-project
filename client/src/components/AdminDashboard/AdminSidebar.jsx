@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import AddCourses from './AddCourses';
 import ViewCourses from './ViewCourses';
 import Messages  from './Messages';
+import Learners from './Learners';
 
 
 const AdminAppointments = () => {
@@ -32,7 +33,7 @@ const AdminAppointments = () => {
             </button>
           </li>
           <li>
-            <button onClick={() => handleLinkClick('users')} className="w-full text-left">
+            <button onClick={() => handleLinkClick('learners')} className="w-full text-left">
               Manage users
             </button>
           </li>
@@ -51,7 +52,7 @@ const AdminAppointments = () => {
         {activeSection === 'users'}
         {activeSection === 'viewcourses'   && <ViewCourses />}
         {activeSection === 'messages' && <Messages/>}
-        {activeSection === 'doctors' && <DoctorsForm />}
+        {activeSection === 'learners' && <Learners />}
       </div>
     </div>
   );
