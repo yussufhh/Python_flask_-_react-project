@@ -25,7 +25,7 @@ const SignUp = () => {
 
       if (response.ok) {
         setSignupMessage('Registration successful!');
-        message.success('Signup successful, redirecting to login');
+        message.success('Signup successful');
         navigate('/login');
       } else {
         setSignupMessage(data.error || 'Signup failed!');
@@ -40,13 +40,13 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 bg-white shadow-md rounded-lg">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 ">
+      <div className="w-full max-w-md p-8 bg-white shadow-md rounded-lg mt-10 mb-10">
         <Form name="signup" onFinish={onFinish} layout="vertical" scrollToFirstError>
-          <h2 className="text-2xl font-bold text-center mb-6">Sign Up</h2>
+          <h2 className="text-2xl font-bold text-center mb-6">Register For a Course</h2>
 
-          <p className="text-center mb-4">
-            Already have an account? <Link to="/login">Login</Link>
+          <p className="text-center text-blue-700 mb-4">
+            Already have an account? <Link to="/login"><button>Login</button></Link>
           </p>
 
           <Form.Item
@@ -121,7 +121,7 @@ const SignUp = () => {
 
           <Form.Item>
             <Button type="primary" htmlType="submit" loading={loading} className="w-full">
-              Sign Up
+              Register
             </Button>
           </Form.Item>
 

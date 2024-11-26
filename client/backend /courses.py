@@ -5,8 +5,7 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend communication
 
 # In-memory database
-courses = [
-]
+courses = []
 
 @app.route('/api/featured-courses', methods=['GET'])
 def get_courses():
@@ -15,7 +14,7 @@ def get_courses():
 @app.route('/api/featured-courses', methods=['POST'])
 def add_course():
     new_course = request.json
-    if not new_course.get("title") or not new_course.get("description") or not new_course.get("icon"):
+    if not new_course.get("title") or not new_course.get("description") or not new_course.get("icon") or not new_course.get("content"):
         return jsonify({"error": "Invalid data"}), 400
     new_course["id"] = len(courses) + 1
     courses.append(new_course)
@@ -37,4 +36,4 @@ def delete_course(course_id):
     return jsonify({"message": "Course deleted"}), 200
 
 if __name__ == '__main__':
-    app.run(port =5500, debug=True)  # Run the Flask app on port 5000
+    app.run(port=5300, debug=True)  # Run the Flask app on port 5300

@@ -27,12 +27,12 @@ const Login = () => {
 
       if (response.status === 200) {
         const { token, role } = response.data; // Extract token and role
-        // Store the token and role in localStorage or other state management method
+        // Store the token and role in localStorage
         localStorage.setItem('auth-token', token);
         localStorage.setItem('user-role', role);
-        
+
         message.success('Login successful');
-        navigate('/sidebar');
+        navigate('/sidebar'); // Redirect to sidebar after successful login
       }
     } catch (error) {
       message.error(error.response?.data?.error || 'Login failed');

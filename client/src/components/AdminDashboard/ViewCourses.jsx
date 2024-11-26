@@ -9,7 +9,7 @@ const ViewCourses = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:5500/api/featured-courses');
+        const response = await fetch('http://127.0.0.1:5300/api/featured-courses');
         const data = await response.json();
         setCourses(data);
       } catch (error) {
@@ -22,7 +22,7 @@ const ViewCourses = () => {
   // Handle delete course
   const deleteCourse = async (id) => {
     try {
-      await fetch(`http://127.0.0.1:5500/api/featured-courses/${id}`, { method: 'DELETE' });
+      await fetch(`http://127.0.0.1:5300/api/featured-courses/${id}`, { method: 'DELETE' });
       setCourses((prev) => prev.filter((course) => course.id !== id));
     } catch (error) {
       console.error('Error deleting course:', error);
@@ -32,7 +32,7 @@ const ViewCourses = () => {
   // Handle update course
   const updateCourse = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:5500/api/featured-courses/${editingCourse.id}`, {
+      const response = await fetch(`http://127.0.0.1:5300/api/featured-courses/${editingCourse.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updatedData),

@@ -12,47 +12,42 @@ import Settings from './components/Settings/Settings';
 import Footer from './components/footer/Footer';
 import SignUp from './components/signup/SignUp';
 import Login from './components/login/Login';
-import EditProfile from './components/pages/EditProfile';  // Only import it here once
+import EditProfile from './components/pages/EditProfile';
 import Main from './components/pages/Main';
-import AboutUs  from './components/pages/About';
+import AboutUs from './components/pages/About';
 import AdminSidebar from './components/AdminDashboard/AdminSidebar';
 
 function App() {
   return (
     <Router>
-   
-        {/* Sidebar */}
-      
+      {/* Navbar at the top */}
+      <Navbar />
 
-        
-          {/* Navbar at the top */}
-          <Navbar />
+      {/* Main Content Area */}
+      <main>
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/" element={<Main />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/about" element={<AboutUs />} />
 
-          {/* Main Content Area */}
-          <main>
-            <Routes>
-              {/* Public Routes */}
-              <Route path="/home" element={<Home />} />
-              <Route path="/signup" element={<SignUp />} />
-              <Route path="/login" element={<Login />} />
+          {/* Authenticated Routes */}
+          <Route path="/" element={<Main />} />
+          <Route path="/courses" element={<Courses />} />
+          <Route path="/courses/:id" element={<CourseDetail />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/edit" element={<EditProfile />} />
+          <Route path="/calendar" element={<Calendar />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/sidebar" element={<Sidebar />} />
+          <Route path="/adminsidebar" element={<AdminSidebar />} />
+        </Routes>
+      </main>
 
-              {/* Authenticated Routes */}
-              <Route path="/" element={<Main />} />
-              <Route path="/courses" element={<Courses />} />
-              <Route path="/courses/:id" element={<CourseDetail />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/profile/edit" element={<EditProfile />} /> {/* Route for editing profile */}
-              <Route path="/calendar" element={<Calendar />} />
-              <Route path="/settings"element={<Settings />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/about" element={<AboutUs />} />
-              <Route path="/sidebar" element={<Sidebar />} />
-              <Route path="/adminsidebar" element={<AdminSidebar />} />
-            </Routes>
-          </main>
-
-          {/* Footer at the bottom */}
-          <Footer />
+      {/* Footer at the bottom */}
+      <Footer />
     </Router>
   );
 }

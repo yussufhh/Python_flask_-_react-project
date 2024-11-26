@@ -69,6 +69,14 @@ def signup():
     try:
         db.session.add(new_user)
         db.session.commit()
+
+        # Send welcome email after successful signup
+        send_email(
+            email,
+            "Welcome to EduMaster",
+            f"Dear {username},\n\nYou have successfully registered for the {course} course. Please wait for the Approval by the officials  Welcome to EduMaster Learning Management System!, Good luck \n\nBest regards,\nEduMaster Team"
+        )
+
         return jsonify({"message": "User registered successfully"}), 201
     except Exception as e:
         db.session.rollback()
@@ -150,7 +158,12 @@ def accept_user(user_id):
     send_email(
         user.email,
         "Admission Accepted",
-        f"Dear {user.username},\n\nCongratulations! You have been accepted for admission to the {user.course} course."
+        f"Dear {user.username},\n\nCongratulations! You have been accepted for admission to the {user.course} course.\n\n"
+        "The course is designed to be completed within 3 months and covers essential skills to help you excel in the field. "
+        "Please ensure you complete all modules, assignments, and exams to maximize your learning experience and achieve certification.\n\n"
+        "We are excited to have you onboard and are confident that this program will equip you with the knowledge and tools for success. "
+        "If you have any questions or need assistance, feel free to reach out to our support team.\n\n"
+        "Best regards,\nEduMaster Team"
     )
 
     return jsonify({
@@ -179,7 +192,8 @@ def reject_user(user_id):
     send_email(
         user.email,
         "Registration Declined",
-        f"Dear {user.username},\n\nWe regret to inform you that your application for the {user.course} course was not accepted."
+        f"Dear {user.username},\n\nWe regret to inform you that your application for the {user.course} course was not accepted. \n\n"
+        "From EduMaster Learning Management System \n\nBest regards,\nEduMaster Team"
     )
 
     return jsonify({

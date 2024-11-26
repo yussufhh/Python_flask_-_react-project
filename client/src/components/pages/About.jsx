@@ -95,7 +95,7 @@ const AboutUs = () => {
                 alt="Team Member"
                 className="w-32 h-32 mx-auto rounded-full mb-4"
               />
-              <h3 className="text-xl font-semibold text-gray-800">John Doe</h3>
+              <h3 className="text-xl font-semibold text-gray-800">Noor Abdullahi</h3>
               <p className="text-gray-700">CEO & Founder</p>
             </div>
             <div className="bg-green-400 p-8 rounded-xl shadow-xl hover:shadow-2xl transition duration-500 text-center">
@@ -104,7 +104,7 @@ const AboutUs = () => {
                 alt="Team Member"
                 className="w-32 h-32 mx-auto rounded-full mb-4"
               />
-              <h3 className="text-xl font-semibold text-gray-800">Jane Smith</h3>
+              <h3 className="text-xl font-semibold text-gray-800">Suleiman Mohamed</h3>
               <p className="text-gray-700">CTO</p>
             </div>
             <div className="bg-green-400 p-8 rounded-xl shadow-xl hover:shadow-2xl transition duration-500 text-center">
@@ -113,7 +113,7 @@ const AboutUs = () => {
                 alt="Team Member"
                 className="w-32 h-32 mx-auto rounded-full mb-4"
               />
-              <h3 className="text-xl font-semibold text-gray-800">Alice Johnson</h3>
+              <h3 className="text-xl font-semibold text-gray-800">Mohamed Omar</h3>
               <p className="text-gray-700">Lead Instructor</p>
             </div>
           </div>

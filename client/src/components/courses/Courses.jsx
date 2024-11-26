@@ -1,20 +1,25 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Courses = () => {
   const [courses, setCourses] = useState([]);
+  const navigate = useNavigate();
 
-  // Fetch courses from Flask API
   useEffect(() => {
-    fetch('/http://127.0.0.1:5000')  // Assuming the backend is served on the same domain
+    // Correct URL
+    fetch('http://127.0.0.1:5000/api/featured-courses') // Correct API endpoint
       .then(res => res.json())
       .then(data => setCourses(data))
       .catch(err => console.error(err));
   }, []);
 
   const enrollCourse = (id) => {
-    fetch(`/enroll/${id}`, { method: 'POST' })
+    fetch(`http://127.0.0.1:5000/api/enroll/${id}`, { method: 'POST' })
       .then(res => res.json())
-      .then(data => alert(data.message))
+      .then(data => {
+        alert(data.message);
+        navigate(`/course-content/${id}`); // Navigate to the course content page
+      })
       .catch(err => console.error(err));
   };
 
@@ -36,9 +41,7 @@ const Courses = () => {
           </div>
         ))}
       </div>
-      
     </div>
-    
   );
 };
 
