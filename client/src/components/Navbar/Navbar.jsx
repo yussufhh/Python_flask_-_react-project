@@ -19,7 +19,7 @@ const Navbar = () => {
 
         {/* Navbar Links */}
         <div className="hidden md:flex space-x-4 justify-center flex-grow">
-          <Link to="/" className="text-white hover:text-red-700 bg-green-800 px-4">Home</Link>
+          <Link to="/" className="text-white hover:text-blue-800 bg-orange-800 px-4">Home</Link>
           <Link to="/about" className="text-white hover:text-gray-300 px-4">About Us</Link>
 
           {/* Conditional rendering */}

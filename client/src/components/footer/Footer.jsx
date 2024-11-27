@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaGithub } from 'react-icons/fa';
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaGithub, FaWhatsapp } from 'react-icons/fa';
 
 const Footer = () => {
   return (
@@ -69,6 +69,15 @@ const Footer = () => {
             <h2 className="text-xl font-semibold mb-2">Contact Us</h2>
             <p className="text-gray-300">Email: support@yourdomain.com</p>
             <p className="text-gray-300">Phone: +123 456 7890</p>
+            <a
+              href="https://wa.me/254793477632"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center space-x-2 mt-4 bg-green-500 hover:bg-green-600 text-white p-3 rounded-full transition duration-300"
+            >
+              <FaWhatsapp size={30} />
+              <span>Chat on WhatsApp</span>
+            </a>
           </div>
         </div>
       </div>
