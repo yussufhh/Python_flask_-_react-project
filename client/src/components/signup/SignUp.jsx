@@ -45,8 +45,13 @@ const SignUp = () => {
         <Form name="signup" onFinish={onFinish} layout="vertical" scrollToFirstError>
           <h2 className="text-2xl font-bold text-center mb-6">Register For a Course</h2>
 
-          <p className="text-center text-blue-700 mb-4">
-            Already have an account? <Link to="/login"><button>Login</button></Link>
+          <p className="text-center text-blue-700 mb-4 text-sm">
+            Already have an account? 
+            <Link to="/login" className="underline">Login</Link>
+          </p>
+
+          <p className="text-center text-gray-500 text-xs mb-4">
+            Start your learning journey today with our course offerings!
           </p>
 
           <Form.Item
@@ -55,6 +60,7 @@ const SignUp = () => {
             rules={[{ required: true, message: 'Please input your username!' }]}
           >
             <Input prefix={<UserOutlined />} placeholder="Username" />
+            <small className="text-gray-500">This will be your public identity</small>
           </Form.Item>
 
           <Form.Item
@@ -66,6 +72,7 @@ const SignUp = () => {
             ]}
           >
             <Input prefix={<MailOutlined />} placeholder="E-Mail" />
+            <small className="text-gray-500">We'll send you course updates here</small>
           </Form.Item>
 
           <Form.Item
@@ -74,6 +81,7 @@ const SignUp = () => {
             rules={[{ required: true, message: 'Please input your password!' }]}
           >
             <Input.Password prefix={<LockOutlined />} placeholder="Password" />
+            <small className="text-gray-500">Make sure it's secure</small>
           </Form.Item>
 
           {/* Dropdown for Course Selection */}
@@ -89,6 +97,7 @@ const SignUp = () => {
               <Option value="Python">Python</Option>
               <Option value="Git">Git</Option>
             </Select>
+            <small className="text-gray-500">Pick the course that interests you the most!</small>
           </Form.Item>
 
           {/* Dropdown for Gender Selection */}
@@ -129,7 +138,7 @@ const SignUp = () => {
             <p
               className={`text-center ${
                 signupMessage.includes('failed') ? 'text-red-500' : 'text-green-500'
-              } mt-4`}
+              } mt-4 text-xs`}
             >
               {signupMessage}
             </p>

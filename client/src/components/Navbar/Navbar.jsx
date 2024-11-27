@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const isLoggedIn = !!localStorage.getItem('auth-token'); // Check if the user is logged in
+  const [showDropdown, setShowDropdown] = useState(false);
+  const isLoggedIn = !!localStorage.getItem('auth-token');
 
   const handleLogout = () => {
     localStorage.removeItem('auth-token');
     localStorage.removeItem('user-role');
-    navigate('/login'); // Redirect to login page
+    navigate('/login');
+  };
+
+  const handleSignupOption = (role) => {
+    setShowDropdown(false);
+    if (role === 'student') {
+      navigate('/signup');
+    } else if (role === 'instructor') {
+      navigate('/instructor'); // Navigate to the instructor signup page
+    }
   };
 
   return (
@@ -36,7 +46,30 @@ const Navbar = () => {
           ) : (
             <>
               <Link to="/login" className="text-white hover:text-blue-700 px-4">Login</Link>
-              <Link to="/signup" className="text-white hover:text-blue-700 px-4">Sign Up</Link>
+              <div className="relative">
+                <button
+                  onClick={() => setShowDropdown(!showDropdown)}
+                  className="text-white hover:text-blue-700 px-4"
+                >
+                  Sign Up
+                </button>
+                {showDropdown && (
+                  <div className="absolute bg-white text-black shadow-lg rounded-md mt-2">
+                    <button
+                      onClick={() => handleSignupOption('student')}
+                      className="block px-4 py-2 hover:bg-gray-200"
+                    >
+                      Student
+                    </button>
+                    <button
+                      onClick={() => handleSignupOption('instructor')}
+                      className="block px-4 py-2 hover:bg-gray-200"
+                    >
+                      Instructor
+                    </button>
+                  </div>
+                )}
+              </div>
             </>
           )}
         </div>

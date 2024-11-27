@@ -16,6 +16,8 @@ import EditProfile from './components/pages/EditProfile';
 import Main from './components/pages/Main';
 import AboutUs from './components/pages/About';
 import AdminSidebar from './components/AdminDashboard/AdminSidebar';
+import Instructor from './components/instructor/Instructor';
+import InstructorLogin from './components/InstructorLogin/InstructorLogin';
 
 function App() {
   return (
@@ -43,6 +45,8 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/sidebar" element={<Sidebar />} />
           <Route path="/adminsidebar" element={<AdminSidebar />} />
+          <Route path="/instructor" element={<Instructor />} />
+          <Route path="/instructorlogin" element={<InstructorLogin />} />
         </Routes>
       </main>
 
