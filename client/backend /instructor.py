@@ -1,9 +1,9 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask_mail import Mail, Message
-import bcrypt  # For password hashing and verification
-import os
+import bcrypt
 from dotenv import load_dotenv
+import os
 
 # Load environment variables from .env file
 load_dotenv()
@@ -13,13 +13,13 @@ app = Flask(__name__)
 # Enable CORS for all routes and origins
 CORS(app)
 
-# Flask Email configuration
+# Flask-Mail Configuration from environment variables
 app.config['MAIL_SERVER'] = os.getenv('MAIL_SERVER')
-app.config['MAIL_PORT'] = os.getenv('MAIL_PORT')
+app.config['MAIL_PORT'] = int(os.getenv('MAIL_PORT'))
 app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
 app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
-app.config['MAIL_USE_TLS'] = os.getenv('MAIL_USE_TLS')
-app.config['MAIL_USE_SSL'] = os.getenv('MAIL_USE_SSL')
+app.config['MAIL_USE_TLS'] = os.getenv('MAIL_USE_TLS') == 'True'
+app.config['MAIL_USE_SSL'] = os.getenv('MAIL_USE_SSL') == 'True'
 app.config['MAIL_DEFAULT_SENDER'] = os.getenv('MAIL_USERNAME')
 
 mail = Mail(app)
@@ -46,7 +46,7 @@ def register_instructor():
         password = data.get('password')
         gender = data.get('gender')
         county = data.get('county')
-        specialization = data.get('specialization')  # Area of specialization
+        specialization = data.get('specialization')
         qualification = data.get('qualification')
         experience = data.get('experience')
         methodology = data.get('methodology')
@@ -66,24 +66,16 @@ def register_instructor():
         }
 
         # Send confirmation email
-        msg = Message('Instructor Application Successful',
+        msg = Message('Instructor Registration Successful',
                       recipients=[email])
-        msg.body = f"""
-        Dear {username},
-
-        Congratulations! You have successfully applied for the position of Instructor at our institution.
-
-        We are thrilled to have you on board and we believe that your skills, experience, and dedication will make a significant impact. 
-
-        Your area of specialization, {specialization}, will certainly bring great value to our learning community, and we look forward to seeing how you can inspire and educate future generations of students.
-
-        If you have any questions or need assistance, please don’t hesitate to reach out to us.
-
-        Welcome aboard, {username}!
-
-        Best regards,
-        EduMaster Team
-        """
+        msg.body = f"Dear {username},\n\n  Congratulations! You have successfully applied for the position of Instructor at our institution.\n\n" \
+                   f"We are thrilled to have you on board and we believe that your skills, experience, and dedication will make a significant impact. " \
+                   f"Your area of specialization, {specialization}, will certainly bring great value to our learning community, and we look forward " \
+                   f"to seeing how you can inspire and educate future generations of students.\n\n" \
+                   f"If you have any questions or need assistance, please don’t hesitate to reach out to us.\n\n" \
+                   f"Welcome aboard, {username}!\n\n" \
+                   f"Best regards,\n" \
+                   f"EduMaster Team"
         mail.send(msg)
 
         # Return success message
