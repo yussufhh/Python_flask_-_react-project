@@ -146,7 +146,7 @@ const Main = () => {
               <p className="italic text-lg mb-4">
                 "The support from the instructors and community is unparalleled!"
               </p>
-              <p className="text-right text-teal-700 font-bold">- Fatima Ali</p>
+              <p className="text-right text-teal-700 font-bold">- Qamar Abdullahi</p>
             </div>
           </div>
         </div>

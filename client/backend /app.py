@@ -74,7 +74,7 @@ def signup():
         send_email(
             email,
             "Welcome to EduMaster",
-            f"Dear {username},\n\nYou have successfully registered for the {course} course. Please wait for the Approval by the officials  Welcome to EduMaster Learning Management System!, Good luck \n\nBest regards,\nEduMaster Team"
+            f"Dear {username},\n\nYou have successfully registered for the {course} course. Please wait for the Approval by the officials. Welcome to EduMaster Learning Management System! Good luck \n\nBest regards,\nEduMaster Team"
         )
 
         return jsonify({"message": "User registered successfully"}), 201
@@ -201,21 +201,5 @@ def reject_user(user_id):
         "user": {"id": user.id, "username": user.username, "status": user.status}
     }), 200
 
-# API to delete a user
-@app.route('/api/auth/users/<int:user_id>', methods=['DELETE', 'OPTIONS'])
-def delete_user(user_id):
-    if request.method == 'OPTIONS':
-        return jsonify({'message': 'CORS preflight for delete request'}), 200
-
-    user = User.query.get(user_id)
-    if not user:
-        return jsonify({"error": "User not found"}), 404
-
-    db.session.delete(user)
-    db.session.commit()
-
-    return jsonify({"message": "User deleted successfully"}), 200
-
-# Run the Flask app
 if __name__ == '__main__':
     app.run(debug=True)

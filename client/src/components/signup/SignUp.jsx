@@ -7,7 +7,6 @@ const { Option } = Select;
 
 const SignUp = () => {
   const [loading, setLoading] = useState(false);
-  const [signupMessage, setSignupMessage] = useState('');
   const navigate = useNavigate();
 
   const onFinish = async (values) => {
@@ -24,34 +23,39 @@ const SignUp = () => {
       const data = await response.json();
 
       if (response.ok) {
-        setSignupMessage('Registration successful!');
         message.success('Signup successful');
         navigate('/login');
       } else {
-        setSignupMessage(data.error || 'Signup failed!');
         message.error(data.error || 'Signup failed!');
       }
     } catch (error) {
-      setSignupMessage('An error occurred. Please try again later.');
-      message.error('Signup failed');
+      message.error('An error occurred. Please try again later.');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 ">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 bg-white shadow-md rounded-lg mt-10 mb-10">
-        <Form name="signup" onFinish={onFinish} layout="vertical" scrollToFirstError>
+        <Form
+          name="signup"
+          onFinish={onFinish}
+          layout="vertical"
+          scrollToFirstError
+          initialValues={{
+            username: '',
+            email: '',
+            password: '',
+            course: null,
+            gender: null,
+            county: null,
+          }}
+        >
           <h2 className="text-2xl font-bold text-center mb-6">Register For a Course</h2>
 
           <p className="text-center text-blue-700 mb-4 text-sm">
-            Already have an account? 
-            <Link to="/login" className="underline">Login</Link>
-          </p>
-
-          <p className="text-center text-gray-500 text-xs mb-4">
-            Start your learning journey today with our course offerings!
+            Already have an account? <Link to="/login" className="underline">Login</Link>
           </p>
 
           <Form.Item
@@ -60,7 +64,6 @@ const SignUp = () => {
             rules={[{ required: true, message: 'Please input your username!' }]}
           >
             <Input prefix={<UserOutlined />} placeholder="Username" />
-            <small className="text-gray-500">This will be your public identity</small>
           </Form.Item>
 
           <Form.Item
@@ -72,7 +75,6 @@ const SignUp = () => {
             ]}
           >
             <Input prefix={<MailOutlined />} placeholder="E-Mail" />
-            <small className="text-gray-500">We'll send you course updates here</small>
           </Form.Item>
 
           <Form.Item
@@ -81,10 +83,8 @@ const SignUp = () => {
             rules={[{ required: true, message: 'Please input your password!' }]}
           >
             <Input.Password prefix={<LockOutlined />} placeholder="Password" />
-            <small className="text-gray-500">Make sure it's secure</small>
           </Form.Item>
 
-          {/* Dropdown for Course Selection */}
           <Form.Item
             name="course"
             label="Select a Course"
@@ -97,10 +97,8 @@ const SignUp = () => {
               <Option value="Python">Python</Option>
               <Option value="Git">Git</Option>
             </Select>
-            <small className="text-gray-500">Pick the course that interests you the most!</small>
           </Form.Item>
 
-          {/* Dropdown for Gender Selection */}
           <Form.Item
             name="gender"
             label="Select Gender"
@@ -113,7 +111,6 @@ const SignUp = () => {
             </Select>
           </Form.Item>
 
-          {/* Dropdown for County Selection */}
           <Form.Item
             name="county"
             label="Select County"
@@ -124,7 +121,6 @@ const SignUp = () => {
               <Option value="Mombasa">Mombasa</Option>
               <Option value="Kisumu">Kisumu</Option>
               <Option value="Garissa">Garissa</Option>
-              {/* Add more counties as needed */}
             </Select>
           </Form.Item>
 
@@ -133,16 +129,6 @@ const SignUp = () => {
               Register
             </Button>
           </Form.Item>
-
-          {signupMessage && (
-            <p
-              className={`text-center ${
-                signupMessage.includes('failed') ? 'text-red-500' : 'text-green-500'
-              } mt-4 text-xs`}
-            >
-              {signupMessage}
-            </p>
-          )}
         </Form>
       </div>
     </div>
