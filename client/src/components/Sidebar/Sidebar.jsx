@@ -18,7 +18,7 @@ import Calendar from '../pages/Calendar';
 import Profile from '../pages/Profile';
 import Settings from '../Settings/Settings';
 import Contact from '../contact/Contact';
-
+import Assignment from '../Assignment/Assignment';
 const Sidebar = () => {
   const [activeSection, setActiveSection] = useState('dashboard');
 
@@ -29,7 +29,7 @@ const Sidebar = () => {
   const navLinks = [
     { to: "/", label: "Dashboard", icon: <HomeIcon className="h-5 w-5 mr-2" />, section: 'dashboard' },
     { to: "/courses", label: "Courses", icon: <BookOpenIcon className="h-5 w-5 mr-2" />, section: 'courses' },
-    { to: "/assignments", label: "Assignments", icon: <ClipboardDocumentListIcon className="h-5 w-5 mr-2" />, section: 'assignments' },
+    { to: "/assignment", label: "Assignment", icon: <ClipboardDocumentListIcon className="h-5 w-5 mr-2" />, section: 'assignment' },
     { to: "/calendar", label: "Calendar", icon: <CalendarDaysIcon className="h-5 w-5 mr-2" />, section: 'calendar' },
     { to: "/profile", label: "Profile", icon: <UserCircleIcon className="h-5 w-5 mr-2" />, section: 'profile' },
     { to: "/settings", label: "Settings", icon: <CogIcon className="h-5 w-5 mr-2" />, section: 'settings' },
@@ -63,7 +63,7 @@ const Sidebar = () => {
       <div className="flex-1 p-6">
         {activeSection === 'dashboard' && <Dashboard />}
         {activeSection === 'courses' && <Courses />}
-        {activeSection === 'assignments' && <Assignments />}
+        {activeSection === 'assignment' && <Assignment />}
         {activeSection === 'calendar' && <Calendar />}
         {activeSection === 'profile' && <Profile />}
         {activeSection === 'settings' && <Settings />}

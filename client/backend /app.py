@@ -127,6 +127,21 @@ def get_users():
 
     return jsonify({"users": user_list}), 200
 
+# API to delete a user
+@app.route('/api/auth/users/<int:user_id>', methods=['DELETE'])
+def delete_user(user_id):
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+
+    try:
+        db.session.delete(user)
+        db.session.commit()
+        return jsonify({"message": "User deleted successfully"}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": "An error occurred while deleting the user"}), 500
+
 # Send email function
 def send_email(recipient, subject, body):
     msg = Message(subject, sender=os.getenv('MAIL_USERNAME'), recipients=[recipient])

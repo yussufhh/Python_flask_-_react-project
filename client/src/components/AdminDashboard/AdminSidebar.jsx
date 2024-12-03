@@ -12,6 +12,10 @@ import AddCourses from './AddCourses';
 import ViewCourses from './ViewCourses';
 import Messages from './Messages';
 import Learners from './Learners';
+import AddAssignment from './assignment/AddAssignment';
+import ViewAssignment from './assignment/ViewAssignment';
+import StudentAssignment from '../Assignment/StudentAssignment';
+
 
 const AdminAppointments = () => {
   const [activeSection, setActiveSection] = useState('viewcourses');
@@ -27,6 +31,9 @@ const AdminAppointments = () => {
     { label: 'Add Courses', icon: <PlusCircleIcon className="h-5 w-5 mr-2" />, section: 'addcourses' },
     { label: 'Messages', icon: <ChatBubbleLeftIcon className="h-5 w-5 mr-2" />, section: 'messages' },
     { label: 'Manage Users', icon: <UsersIcon className="h-5 w-5 mr-2" />, section: 'learners' },
+    { label: 'Add Assignment', icon: <PlusCircleIcon className="h-5 w-5 mr-2" />, section: 'addassignment' },
+    { label: 'View Assignment', icon: <BookOpenIcon className="h-5 w-5 mr-2" />, section: 'viewassignment' },
+    { label: 'Student Assignment', icon: <BookOpenIcon className="h-5 w-5 mr-2" />, section: 'studentassignment' },
     
   ];
 
@@ -57,6 +64,9 @@ const AdminAppointments = () => {
         {activeSection === 'addcourses' && <AddCourses />}
         {activeSection === 'messages' && <Messages />}
         {activeSection === 'learners' && <Learners />}
+        {activeSection === 'addassignment' && <AddAssignment />}
+        {activeSection === 'viewassignment' && <ViewAssignment/>}
+        {activeSection === 'studentassignment' && <StudentAssignment/>}
       </div>
     </div>
   );
