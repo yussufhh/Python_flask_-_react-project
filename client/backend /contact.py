@@ -37,4 +37,4 @@ def add_submission():
     return jsonify(submission), 201
 
 if __name__ == '__main__':
-    app.run(port=5300, debug=True)
+    app.run(port=5400, debug=True)

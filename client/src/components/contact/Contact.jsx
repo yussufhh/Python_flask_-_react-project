@@ -18,7 +18,7 @@ const Contact = () => {
     };
 
     try {
-      const response = await fetch("http://127.0.0.1:5300/api/contact", {  // Updated to correct port
+      const response = await fetch("http://127.0.0.1:5400/api/contact", {  // Updated to correct port
         method: "POST",
         headers: {
           "Content-Type": "application/json",

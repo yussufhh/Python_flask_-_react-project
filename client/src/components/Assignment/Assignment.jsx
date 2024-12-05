@@ -3,108 +3,123 @@ import axios from "axios";
 
 const Assignment = () => {
   const [assignments, setAssignments] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [selectedAssignment, setSelectedAssignment] = useState(null);
-  const [answer, setAnswer] = useState("");
-  const [message, setMessage] = useState("");
+  const [studentName, setStudentName] = useState("");
+  const [studentSubmission, setStudentSubmission] = useState("");
+  const [submissionMessage, setSubmissionMessage] = useState("");
 
   useEffect(() => {
-    const fetchAssignments = async () => {
-      try {
-        const response = await axios.get("http://localhost:5001/api/assignments");
-        setAssignments(response.data);
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Error fetching assignments:", error);
-        setIsLoading(false);
-      }
-    };
-
-    fetchAssignments();
+    // Fetch assignments
+    axios
+      .get("http://127.0.0.1:5001/api/assignments")
+      .then((response) => setAssignments(response.data))
+      .catch((error) => console.error("Error fetching assignments:", error));
   }, []);
 
-  const handleSubmit = async (e) => {
+  const handleAssignmentSubmit = (e) => {
     e.preventDefault();
-    if (!answer.trim() || !selectedAssignment) {
-      setMessage("Please select an assignment and provide an answer.");
-      return;
-    }
 
-    try {
-      const response = await axios.post("http://localhost:5001/api/submit-assignment", {
-        assignment_id: selectedAssignment.id,
-        answer,
+    const submissionData = {
+      assignment_id: selectedAssignment.id,
+      student_name: studentName,
+      submission_content: studentSubmission,
+    };
+
+    axios
+      .post("http://127.0.0.1:5001/api/submit-assignment", submissionData)
+      .then((response) => {
+        setSubmissionMessage(response.data.message);
+        setSelectedAssignment(null);
+        setStudentName("");
+        setStudentSubmission("");
+      })
+      .catch((error) => {
+        console.error("Error submitting assignment:", error);
+        setSubmissionMessage("Error submitting assignment.");
       });
-      setMessage(response.data.message);
-      setAnswer("");
-      setSelectedAssignment(null);
-    } catch (error) {
-      console.error("Error submitting assignment:", error);
-      setMessage("Error submitting assignment. Please try again.");
-    }
   };
 
   return (
-    <div className="p-6">
-      <h2 className="text-xl font-bold mb-4">Assignments</h2>
-      {isLoading ? (
-        <p>Loading assignments...</p>
-      ) : (
-        <table className="w-full border-collapse border border-gray-300 mb-6">
-          <thead>
-            <tr>
-              <th className="border border-gray-300 p-2">Title</th>
-              <th className="border border-gray-300 p-2">Description</th>
-              <th className="border border-gray-300 p-2">Due Date</th>
-              <th className="border border-gray-300 p-2">Course</th>
-              <th className="border border-gray-300 p-2">Action</th>
+    <div className="container mx-auto p-6">
+      <h2 className="text-3xl font-bold mb-6 text-center">Assignments</h2>
+
+      {/* Assignments Table */}
+      <table className="table-auto w-full border-collapse border border-gray-300">
+        <thead>
+          <tr className="bg-gray-100">
+            <th className="border border-gray-300 px-4 py-2">#</th>
+            <th className="border border-gray-300 px-4 py-2">Title</th>
+            <th className="border border-gray-300 px-4 py-2">Description</th>
+            <th className="border border-gray-300 px-4 py-2">Due Date</th>
+            <th className="border border-gray-300 px-4 py-2">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {assignments.map((assignment, index) => (
+            <tr key={assignment.id}>
+              <td className="border border-gray-300 px-4 py-2">{index + 1}</td>
+              <td className="border border-gray-300 px-4 py-2">{assignment.title}</td>
+              <td className="border border-gray-300 px-4 py-2">{assignment.description}</td>
+              <td className="border border-gray-300 px-4 py-2">{assignment.due_date}</td>
+              <td className="border border-gray-300 px-4 py-2">
+                <button
+                  onClick={() => setSelectedAssignment(assignment)}
+                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                >
+                  Do Assignment
+                </button>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {assignments.map((assignment) => (
-              <tr key={assignment.id}>
-                <td className="border border-gray-300 p-2">{assignment.title}</td>
-                <td className="border border-gray-300 p-2">{assignment.description}</td>
-                <td className="border border-gray-300 p-2">{assignment.due_date}</td>
-                <td className="border border-gray-300 p-2">{assignment.course}</td>
-                <td className="border border-gray-300 p-2 text-center">
-                  <button
-                    className="bg-green-500 text-white py-1 px-3 rounded"
-                    onClick={() => setSelectedAssignment(assignment)}
-                  >
-                    Select
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+          ))}
+        </tbody>
+      </table>
+
+      {/* Assignment Submission Form */}
       {selectedAssignment && (
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <h3 className="text-lg font-bold">
-            Answer Assignment: {selectedAssignment.title}
+        <form
+          onSubmit={handleAssignmentSubmit}
+          className="mt-6 p-4 border rounded shadow-md bg-white"
+        >
+          <h3 className="text-xl font-bold mb-4">
+            Completing: {selectedAssignment.title}
           </h3>
-          <div>
-            <p className="mb-2 text-gray-700">
-              <strong>Question:</strong> {selectedAssignment.description}
-            </p>
-            <label className="block font-medium mb-1">Your Answer</label>
-            <textarea
-              value={answer}
-              onChange={(e) => setAnswer(e.target.value)}
-              className="border rounded w-full p-2"
-              rows="5"
-              placeholder="Write your answer here..."
+
+          <div className="mb-4">
+            <label className="block font-medium">Student Name</label>
+            <input
+              type="text"
+              value={studentName}
+              onChange={(e) => setStudentName(e.target.value)}
+              className="w-full px-3 py-2 border rounded"
               required
             />
           </div>
-          <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded">
+
+          <div className="mb-4">
+            <label className="block font-medium">Your Answer</label>
+            <textarea
+              rows={5}
+              value={studentSubmission}
+              onChange={(e) => setStudentSubmission(e.target.value)}
+              className="w-full px-3 py-2 border rounded"
+              required
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+          >
             Submit Assignment
           </button>
         </form>
       )}
-      {message && <p className="mt-4">{message}</p>}
+
+      {submissionMessage && (
+        <p className="mt-4 text-center text-green-500 font-bold">
+          {submissionMessage}
+        </p>
+      )}
     </div>
   );
 };
