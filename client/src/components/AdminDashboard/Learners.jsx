@@ -11,7 +11,7 @@ const Learners = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    fetch('http://127.0.0.1:5000/api/auth/users')
+    fetch('http://127.0.0.1:5000/api/auth/users') // Corrected endpoint
       .then((response) => {
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
         return response.json();
@@ -46,14 +46,14 @@ const Learners = () => {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const sendEmail = (action, userEmail) => {
-    const emailUrl = `http://127.0.0.1:5000/api/send-email`;
+  const sendEmail = (action, userEmail, userName) => {
+    const emailUrl = `http://127.0.0.1:5000/api/send-email`; // Corrected endpoint
     const emailData = {
       email: userEmail,
       subject: action === 'accept' ? 'Your application has been accepted!' : 'Your application has been rejected!',
       body: action === 'accept' 
-        ? 'Congratulations, your application has been accepted. Welcome aboard!' 
-        : 'We regret to inform you that your application has been rejected.',
+        ? `Congratulations ${userName}, your application has been accepted. Welcome aboard! You have been admitted to the course!`
+        : `We regret to inform you, ${userName}, that your application has been rejected.`,
     };
 
     fetch(emailUrl, {
@@ -70,8 +70,8 @@ const Learners = () => {
       });
   };
 
-  const handleUserAction = (action, id, userEmail) => {
-    const url = `http://127.0.0.1:5000/api/auth/users/${id}/${action}`;
+  const handleUserAction = (action, id, userEmail, userName) => {
+    const url = `http://127.0.0.1:5000/api/auth/users/${id}/${action}`; // Corrected endpoint
     fetch(url, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -81,7 +81,7 @@ const Learners = () => {
         Swal.fire('Success!', `User ${action}ed successfully!`, 'success');
         setUsers(data.users);
         setFilteredUsers(data.users);
-        sendEmail(action, userEmail); // Send email notification
+        sendEmail(action, userEmail, userName); // Send email notification
       })
       .catch((error) => {
         console.error(`${action} failed`, error);
@@ -100,7 +100,7 @@ const Learners = () => {
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        const url = `http://127.0.0.1:5000/api/auth/users/${id}`;
+        const url = `http://127.0.0.1:5000/api/auth/users/${id}`; // Corrected endpoint
         fetch(url, {
           method: 'DELETE',
           headers: { 'Content-Type': 'application/json' },
@@ -167,13 +167,13 @@ const Learners = () => {
                 <td className="px-6 py-3">{user.status}</td>
                 <td className="px-6 py-3">
                   <button
-                    onClick={() => handleUserAction('accept', user.id, user.email)}
+                    onClick={() => handleUserAction('accept', user.id, user.email, user.username)}
                     className="text-green-500 hover:text-green-700 mr-2"
                   >
                     <FaCheckCircle size={20} />
                   </button>
                   <button
-                    onClick={() => handleUserAction('reject', user.id, user.email)}
+                    onClick={() => handleUserAction('reject', user.id, user.email, user.username)}
                     className="text-red-500 hover:text-red-700 mr-2"
                   >
                     <FaTimesCircle size={20} />

@@ -5,6 +5,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_mail import Mail, Message
 from dotenv import load_dotenv
 import os
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from io import BytesIO
 
 # Load environment variables
 load_dotenv()
@@ -143,14 +146,36 @@ def delete_user(user_id):
         return jsonify({"error": "An error occurred while deleting the user"}), 500
 
 # Send email function
-def send_email(recipient, subject, body):
+def send_email(recipient, subject, body, attachment=None):
     msg = Message(subject, sender=os.getenv('MAIL_USERNAME'), recipients=[recipient])
     msg.body = body
+
+    if attachment:
+        msg.attach("admission_letter.pdf", "application/pdf", attachment)
+
     try:
         mail.send(msg)
         print(f"Email sent to {recipient} with subject: {subject}")
     except Exception as e:
         print(f"Error sending email: {e}")
+
+# Function to generate the admission letter as PDF
+def generate_admission_letter(user):
+    buffer = BytesIO()
+    c = canvas.Canvas(buffer, pagesize=letter)
+    c.drawString(100, 750, f"Admission Letter for {user.username}")
+    c.drawString(100, 730, f"Course: {user.course}")
+    c.drawString(100, 710, f"Gender: {user.gender}")
+    c.drawString(100, 690, f"County: {user.county}")
+    c.drawString(100, 670, f"Status: {user.status}")
+    c.drawString(100, 650, f"Dear {user.username},")
+    c.drawString(100, 630, f"Congratulations! You have been accepted for admission to the {user.course} course.")
+    c.drawString(100, 610, f"Best regards,")
+    c.drawString(100, 590, f"EduMaster Team")
+    c.save()
+
+    buffer.seek(0)
+    return buffer.read()
 
 # API to accept a user
 @app.route('/api/auth/users/<int:user_id>/accept', methods=['PUT', 'OPTIONS'])
@@ -169,16 +194,24 @@ def accept_user(user_id):
     user.status = 'Accepted'
     db.session.commit()
 
-    # Send email notification for acceptance
+    # Generate admission letter as PDF
+    pdf_attachment = generate_admission_letter(user)
+
+    # Send email notification for acceptance with admission letter
     send_email(
         user.email,
         "Admission Accepted",
-        f"Dear {user.username},\n\nCongratulations! You have been accepted for admission to the {user.course} course.\n\n"
-        "The course is designed to be completed within 3 months and covers essential skills to help you excel in the field. "
-        "Please ensure you complete all modules, assignments, and exams to maximize your learning experience and achieve certification.\n\n"
-        "We are excited to have you onboard and are confident that this program will equip you with the knowledge and tools for success. "
-        "If you have any questions or need assistance, feel free to reach out to our support team.\n\n"
-        "Best regards,\nEduMaster Team"
+        f"""Dear {user.username},
+
+        Congratulations! You have been accepted for admission to the {user.course} course.
+        
+        The course is designed to be completed within 3 months and covers essential skills to help you excel in the field. Please ensure you complete all modules, assignments, and exams to maximize your learning experience and achieve certification.
+        
+        We are excited to have you onboard and are confident that this program will equip you with the knowledge and tools for success. If you have any questions or need assistance, feel free to reach out to our support team.
+        
+        Best regards,
+        EduMaster Team""",
+        attachment=pdf_attachment
     )
 
     return jsonify({
@@ -203,12 +236,11 @@ def reject_user(user_id):
     user.status = 'Rejected'
     db.session.commit()
 
-    # Send email notification for rejection
+    # Send rejection email
     send_email(
         user.email,
-        "Registration Declined",
-        f"Dear {user.username},\n\nWe regret to inform you that your application for the {user.course} course was not accepted. \n\n"
-        "From EduMaster Learning Management System \n\nBest regards,\nEduMaster Team"
+        "Admission Rejected",
+        f"Dear {user.username},\n\nWe regret to inform you that your admission to the {user.course} course has been rejected. We encourage you to apply again in the future.\n\nBest regards,\nEduMaster Team"
     )
 
     return jsonify({
@@ -216,5 +248,10 @@ def reject_user(user_id):
         "user": {"id": user.id, "username": user.username, "status": user.status}
     }), 200
 
+# Run the app
+
 if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()  # Ensure the database is created within the app context
     app.run(debug=True)
+
